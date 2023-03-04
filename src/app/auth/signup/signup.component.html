@@ -1,1 +1,16 @@
-<p>signup works!</p>
+<h3>Create an Account</h3>
+<Form class="ui form" [formGroup]="authForm">
+    <div class="field">
+        <label for="">Username</label>
+        <input type="text" formControlName="username">
+    </div>
+    <div class="field">
+        <label for="">Password</label>
+        <input type="text" formControlName="password">
+    </div>
+    <div class="field">
+        <label for="">Password Confirmation</label>
+        <input type="text" formControlName="passwordConfirmation">
+    </div>
+    <button class="ui submit button primary">Submit</button>
+</Form>
