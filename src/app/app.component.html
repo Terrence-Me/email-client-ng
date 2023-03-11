@@ -4,7 +4,7 @@
         <div class="right menu">
             <ng-container *ngIf="signedin$ | async">
                 <a href="" routerLink="/inbox" routerLinkActive="active" class="ui item">Inbox</a>
-                <a href="" routerLink="/singout" routerLinkActive="active" class="ui item">Sign Out</a>
+                <a href="" routerLink="/signout" routerLinkActive="active" class="ui item">Sign Out</a>
             </ng-container>
             <ng-container *ngIf="!(signedin$ | async)">
                 <a href="" routerLink="/" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active"
