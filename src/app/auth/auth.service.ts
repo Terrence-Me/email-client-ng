@@ -30,7 +30,7 @@ interface SignedinResponse {
 })
 export class AuthService {
   rootUrl = 'https://api.angular-email.com';
-  signedin$ = new BehaviorSubject(false);
+  signedin$ = new BehaviorSubject<boolean | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -46,36 +46,24 @@ export class AuthService {
   signup(credentials: SignupCredentials) {
     return this.http
       .post<SignupResponse>(`${this.rootUrl}/auth/signup`, credentials)
-      .pipe(
-        tap(() => {
-          this.signedin$.next(true);
-        })
-      );
+      .pipe(tap(() => this.signedin$.next(true)));
   }
 
   checkAuth() {
     return this.http
       .get<SignedinResponse>(`${this.rootUrl}/auth/signedin`)
-      .pipe(
-        tap(({ authenticated }) => {
-          this.signedin$.next(authenticated);
-        })
-      );
+      .pipe(tap(({ authenticated }) => this.signedin$.next(authenticated)));
   }
 
   signout() {
-    return this.http.post(`${this.rootUrl}/auth/signout`, {}).pipe(
-      tap(() => {
-        this.signedin$.next(false);
-      })
-    );
+    return this.http
+      .post(`${this.rootUrl}/auth/signout`, {})
+      .pipe(tap(() => this.signedin$.next(false)));
   }
 
   signin(credentials: SigninCredentials) {
-    return this.http.post(`${this.rootUrl}/auth/signin`, credentials).pipe(
-      tap(() => {
-        this.signedin$.next(true);
-      })
-    );
+    return this.http
+      .post(`${this.rootUrl}/auth/signin`, credentials)
+      .pipe(tap(() => this.signedin$.next(true)));
   }
 }
